@@ -23,3 +23,18 @@ interface ApplicationGraph {
     // what can be provided from the container
     fun repository(): UserRepository
 }
+// Scope annotations on a @Component interface informs Dagger that classes annotated
+// with this annotation (i.e. @Singleton) are bound to the life of the graph and so
+// the same instance of that type is provided every time the type is requested.
+@Singleton
+@Component
+interface ApplicationGraph {
+    fun repository(): UserRepository
+}
+
+// Scope this class to a component using @Singleton scope (i.e. ApplicationGraph)
+@Singleton
+class UserRepository @Inject constructor(
+    private val localDataSource: UserLocalDataSource,
+    private val remoteDataSource: UserRemoteDataSource
+) {  }
