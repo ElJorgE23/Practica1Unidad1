@@ -3,11 +3,11 @@ package com.example.marsphotos.network
 import com.google.android.datatransport.runtime.dagger.Component
 // Create an instance of the application graph
 val applicationGraph: ApplicationGraph = DaggerApplicationGraph.create()
-// Grab an instance of UserRepository from the application graph
+
 val userRepository: UserRepository = applicationGraph.repository()
 val userRepository2: UserRepository = applicationGraph.repository()
 
-assert(userRepository != userRepository2)
+assert(userRepository == userRepository2)
 
 class UserRepository @Inject constructor(
     private val localDataSource: UserLocalDataSource,
@@ -42,3 +42,14 @@ class UserRepository @Inject constructor(
 @MustBeDocumented
 @Retention(value = AnnotationRetention.RUNTIME)
 annotation class MyCustomScope
+@MyCustomScope
+@Component
+interface ApplicationGraph {
+    fun repository(): UserRepository
+}
+
+@MyCustomScope
+class UserRepository @Inject constructor(
+    private val localDataSource: UserLocalDataSource,
+    private val service: UserService
+) {  }
