@@ -1,7 +1,10 @@
 package com.example.marsphotos.network
 
 import com.google.android.datatransport.runtime.dagger.Component
-
+// Create an instance of the application graph
+val applicationGraph: ApplicationGraph = DaggerApplicationGraph.create()
+// Grab an instance of UserRepository from the application graph
+val userRepository: UserRepository = applicationGraph.repository()
 class UserRepository @Inject constructor(
     private val localDataSource: UserLocalDataSource,
     private val remoteDataSource: UserRemoteDataSource
