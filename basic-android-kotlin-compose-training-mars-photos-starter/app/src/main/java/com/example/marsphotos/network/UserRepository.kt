@@ -5,6 +5,10 @@ import com.google.android.datatransport.runtime.dagger.Component
 val applicationGraph: ApplicationGraph = DaggerApplicationGraph.create()
 // Grab an instance of UserRepository from the application graph
 val userRepository: UserRepository = applicationGraph.repository()
+val userRepository2: UserRepository = applicationGraph.repository()
+
+assert(userRepository != userRepository2)
+
 class UserRepository @Inject constructor(
     private val localDataSource: UserLocalDataSource,
     private val remoteDataSource: UserRemoteDataSource
